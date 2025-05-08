@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Inventory</title>
+</head>
+<body>
+    <header>
+        <%- include('./partials/header') %>
+    </header>
+    <main>
+        <div>
+            <h1>Welcome to Game Inventory</h1>
+        </div>
+        <div>
+            <h2>All Genres</h2>
+            <% if(genres.length === 0) { %>
+                <p>No genres available.</p>
+            <% }else{ %>
+                <ul>
+                    <% genres.forEach(genre => { %>
+                        <li>
+                            <a href="/genre/<%= genre.id %>/game"><%= genre.name %></a>
+                            <form action="/genre/<%= genre.id %>/edit" method="GET">
+                                <button type="submit">Edit</button>
+                            </form>
+                        </li>
+                   <% }) %>
+                </ul>
+            <% } %>
+        </div>
+    </main>
+</body>
+</html>

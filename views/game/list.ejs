@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game-Inventory</title>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <main>
+        <% if(error) {%>
+            <p>Error: <span>
+                    <%= error %>
+                </span></p>
+            <% }else { %>
+                <div>
+                    <h2>All <%= byGenre ? games[0].genre_name : '' %> Games</h2>
+                </div>
+                <div>
+                    <% games.forEach((game)=>{ %>
+                        <div class="game-card">
+                            <h3><%= game.title %></h3>
+                            <p><%= game.description %></p>
+                            <p>Release Date: <%= game.release_date.toLocaleDateString() %></p>
+                            <p>Genre: <%= game.genre_name %></p>
+                            <p>
+                                Developer By: <%= game.developer_name %>
+                                <img src="<%= game.developer_countryFlag %>" alt="<%= game.developer_country %>'s flag" width="20" height="15"
+                            </p>
+                            <form action="/game/<%= game.id %>/edit" method="GET">
+                                <button type="submit">Edit</button>
+                            </form>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } %>
+    </main>
+</body>
+
+</html>

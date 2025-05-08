@@ -1,0 +1,51 @@
+
+<%- include('../partials/header') %>
+<div>
+    <h1>Add a New Developer</h1>
+    <% if(error){ %>
+        <p>Error: <span><%= error %></span></p>
+    <% } %>
+    <form action="/developer/create" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" placeholder="e.g. Santa Monica" required>
+        <label for="key">Secret Key:</label>
+        <input type="password" name="key" id="key" placeholder="Enter your secret key to confirm changes" required>
+        <label for="country">Country</label>
+        <img
+            id="flag"
+            src="<%= countries[0].flag ? countries[0].flag : '' %>"
+            alt=""
+            width="32"
+            height="20"
+            style="margin-top: 10px; display:block;"
+        >        
+        <select name="country" id="country" onChange="showFlag(this)" required>
+            <% if(!countries) { %>
+                <option value="" disabled>No countries available.</option>
+            <% } else { %>
+                <option value="" disabled>Select a Country</option>
+                <% countries.forEach(country => { %>
+                    <option value="<%= country.name %>" data-flag="<%= country.flag %>">
+                        <%= country.name %>
+                    </option>
+                <% }) %>
+            <% } %>
+        </select>
+
+        <script>
+            function showFlag(select){
+                const flagUrl = select.selectedOptions[0].dataset.flag;
+                const flagImg = document.getElementById('flag');
+                if(!flagUrl){
+                    flagImg.style.display = 'none';
+                    return;
+                }
+                flagImg.src = flagUrl;
+                flagImg.style.display = 'block';
+                flagImg.alt = select.selectedOptions[0].textContent;
+            }
+        </script>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>

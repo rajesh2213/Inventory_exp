@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <main>
+        <h1><%= title.includes('Create')? 'Add new Genre' : 'Edit Genre' %></h1>
+        <% if(error){ %>
+            <p>Error: <span><%= error %></span></p>
+        <% } %>
+        <form action="<%= title.includes('Create') ? '/genre/create' : '/genre/' + id + '/edit' %>" method="POST">            <label for="name">Genre Name</label>
+            <input type="text" name="name" id="name" placeholder="e.g. Horror" value="<%= title.includes('Edit') ? name: '' %>" required>
+            <label for="key">Secret Key</label>
+            <input type="password" name="key" id="key" placeholder="Enter your secret key to confirm changes" required>
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+</body>
+</html>

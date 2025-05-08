@@ -1,0 +1,34 @@
+
+<%- include('../partials/header') %>
+<div>
+    <h1>Add a New Game</h1>
+    <p>Fill in the details below to add a new game to the inventory.</p>
+    <% if(error){ %>
+        <p>Error: <span><%= error %></span></p>
+    <% } %>
+    <form action="/game/create" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" placeholder="e.g. Resident Evil" required>
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" placeholder="Resident Evil is a third person shooter"></textarea>
+        <label for="releaseDt">Release Date:</label>
+        <input type="date" name="releaseDt" id="releaseDt" required>
+        <label for="genre">Genre:</label>
+        <select name="selectedGenre" id="genre">
+            <option value="" disabled>Select a Genre</option>
+            <% genres.forEach(genre =>{ %>
+                <option value="<%= genre.id %>"><%= genre.name %></option>
+            <% }) %>
+        </select>
+        <label for="developer">Developer:</label>
+        <select name="selectedDeveloper" id="developer">
+            <option value="" disabled>Select a Developer</option>
+            <% developers.forEach(developer =>{ %>
+                <option value="<%= developer.id %>"><%= developer.name %></option>
+            <% }) %>
+        </select>
+        <label for="key">Secret Key:</label>
+        <input type="password" name="key" id="key" placeholder="Enter your secret key to confirm changes" required>
+        <button type="submit">Submit</button>
+    </form>
+</div>
